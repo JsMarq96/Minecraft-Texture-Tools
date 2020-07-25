@@ -2,7 +2,7 @@ import os
 
 '''
     Directory Transversal
-    @author = Juan S. Marquerie
+    by Juan S. Marquerie
     Here are the functions for transversing a nested
     folder structure, in search for a type of file
 '''
