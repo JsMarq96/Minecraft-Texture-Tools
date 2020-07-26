@@ -1,5 +1,5 @@
 # Minecraft Texturepack Downscaler
-This is the first of a series of tool I am developing in order to optimize the workflow of the artist @del_cieno foor the Minecraft texturepack NAPP.<br/>
+This is the first of a series of tool I am developing in order to optimize the workflow of the artist @del_cieno for the Minecraft texturepack NAPP.<br/>
 Since as of now, the texture pack comes in 2 version, with 2 resolutions, I created this tool for a quick and easy downscale, avoding him the pain of downscaling all the texture and maps one by one.
 ## How to run it
 If you want to execute it in the console just: <br/>
