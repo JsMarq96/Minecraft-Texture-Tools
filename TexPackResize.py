@@ -29,7 +29,7 @@ class TexPackResize:
         Function to clone a full folder directory, in order to scale it
     '''
     def directory_clone(self, directory):
-        new_dir_name = str(self.scale) + '_' + directory
+        new_dir_name =  directory + '_' + str(self.scale)
         shutil.copytree(directory, new_dir_name)
         
         return new_dir_name
