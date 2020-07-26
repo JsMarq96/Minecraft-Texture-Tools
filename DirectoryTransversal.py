@@ -13,8 +13,13 @@ import os
 '''
 def file_search(file_extensions = (''), root_dir = '.'):
     files_dir = []
+
+    seperator = '/'
+    if os.name == 'nt':
+        separator = '\\'
+
     for element in os.listdir(root_dir):
-        elem_dir = root_dir + '/' + element
+        elem_dir = root_dir + separator + element
 
         # Add to the list if it is an image, and if it
         # is a folder, recursivelly read its contents
