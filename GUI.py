@@ -9,7 +9,7 @@ import time
     by Juan S. Marquerie
 '''
 
-VERSION = '0.5'
+VERSION = '0.65'
 
 '''
     This requeires a bit of an explanation... While I was doing
