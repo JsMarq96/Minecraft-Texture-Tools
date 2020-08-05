@@ -22,7 +22,7 @@ class TexPackResize:
         Function to scale a single image, and save it
     '''
     def image_scale(self, img_adress, result_img_adress, new_size):
-        img = Image.open(img_adress).convert('RGB')
+        img = Image.open(img_adress).convert('RGBA')
         img.resize(new_size, Image.BICUBIC).save(result_img_adress)
 
     '''
