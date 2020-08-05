@@ -2,6 +2,7 @@ from PIL import Image
 from DirectoryTransversal import file_search
 import shutil
 import png
+import os.path
 
 IMAGE_TYPES = ('.png', '.jpg')
 
@@ -28,8 +29,9 @@ class TexPackResize:
     '''
         Function to clone a full folder directory, in order to scale it
     '''
-    def directory_clone(self, directory):
-        new_dir_name =  directory + '_' + str(self.scale)
+    def directory_clone(self, directory, location=''):
+        new_dir_name = os.path.join(location, os.path.basename(directory) + '_' + str(self.scale))
+        print(new_dir_name)
         shutil.copytree(directory, new_dir_name)
         
         return new_dir_name
@@ -50,9 +52,9 @@ class TexPackResize:
         (Main function)
         Duplicates a directory and then scales it
     '''
-    def resize_directory(self, directory):
-        new_dir = self.directory_clone(directory)
-        self.scale_directory(new_dir)
+    def resize_directory(self, directory, address=''):
+        new_dir = self.directory_clone(directory, address)
+        self.scale_directory(os.path.join(address,new_dir))
 
 
 '''

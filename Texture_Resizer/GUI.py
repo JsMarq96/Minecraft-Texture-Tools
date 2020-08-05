@@ -24,7 +24,7 @@ HORRIBLE_BACKGROUND = True
 def define_GUI(tk_window, resize_util):
     # Window Config
     tk_window.title('TexturePack Resizing Utility v ' + VERSION)
-    tk_window.geometry('420x100')
+    tk_window.geometry('610x100')
 
     if HORRIBLE_BACKGROUND:
         back_img = ImageTk.PhotoImage(Image.open('imgs/background.jpg'))
@@ -37,6 +37,8 @@ def define_GUI(tk_window, resize_util):
     label_folder_origin.grid(column=0, row=0)
     label_resolution = Label(tk_window, text='Resolution')
     label_resolution.grid(column=3, row=0)
+    label_resolution = Label(tk_window, text='Enter the resulting texture direction')
+    label_resolution.grid(column=7, row=0)
     label_x = Label(tk_window, text='x ')
     label_x.grid(column=4, row=1)
 
@@ -49,6 +51,8 @@ def define_GUI(tk_window, resize_util):
     txt_height_input = Entry(tk_window, width=4)
     txt_height_input.grid(column=5, row=1)
     txt_height_input.insert(0,'512')
+    txt_result_direction_input = Entry(tk_window, width=25)
+    txt_result_direction_input.grid(column=7, row=1)
 
     # Button Events
     def launch_item_search():
@@ -56,11 +60,16 @@ def define_GUI(tk_window, resize_util):
         txt_direction_input.delete(0, END)
         txt_direction_input.insert(0,selected_folder)
 
+    def launch_search_result_folder():
+        selected_folder = filedialog.askdirectory()
+        txt_result_direction_input.delete(0, END)
+        txt_result_direction_input.insert(0,selected_folder)
+
     def resize():
         button_resize.configure(state='disabled', text='Resizing...')
         tk_window.update()
         resize_util.scale = (int(txt_width_input.get()), int(txt_height_input.get()))
-        resize_util.resize_directory(txt_direction_input.get())
+        resize_util.resize_directory(txt_direction_input.get(), txt_result_direction_input.get())
         messagebox.showinfo('TexturePack Resizing Utility', 'Finished resizing!')
         button_resize.configure(state='normal', text='Resize')
         tk_window.update()
@@ -69,8 +78,10 @@ def define_GUI(tk_window, resize_util):
     # Buttons
     button_search = Button(tk_window, text='Search', command=launch_item_search)
     button_search.grid(column=1, row=1)
+    button_search_2 = Button(tk_window, text='Search', command=launch_search_result_folder)
+    button_search_2.grid(column=8, row=1)
     button_resize = Button(tk_window, text='Resize', command=resize)
-    button_resize.grid(column=1, row=3)
+    button_resize.grid(column=5, row=3)
 
 
 '''

@@ -11,7 +11,13 @@ def split_text(text_source, split_nums, save_dir='',img_format='.png'):
         for e_i, i in enumerate(range(0, w, n_w)):
             for e_j, j in enumerate(range(0, h, n_h)):
                 print(i,j,e_i, e_j, (e_i * 16) + (e_j))
-                Image.fromarray(img[i:i+n_w, j:j+n_h, 0:dims].astype(np.uint8)).save(save_dir + str((e_i * 16) + (e_j)) + suffix + '.png')
+                slice_img = img[i:i+n_w, j:j+n_h, 0:dims]
+                if suffix == '_n':
+                    t1 = np.copy(slice_img)
+                    t1[:,:,3] = t1[:,:,3] * 0.8
+                    Image.fromarray(t1.astype(np.uint8)).save(save_dir + str((e_i * 16) + (e_j)) + suffix + '.png')
+                else:
+                    Image.fromarray(slice_img.astype(np.uint8)).save(save_dir + str((e_i * 16) + (e_j)) + suffix + '.png')
 
 
 if __name__ == '__main__':

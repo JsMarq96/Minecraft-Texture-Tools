@@ -13,18 +13,20 @@ import time
 VERSION = '0.65'
 
 
-HORRIBLE_BACKGROUND = False
+HORRIBLE_BACKGROUND = True
 
 def define_GUI(tk_window):
     # Window Config
     tk_window.title('Texture Splitting Utility v ' + VERSION)
-    tk_window.geometry('820x100')
 
     if HORRIBLE_BACKGROUND:
-        back_img = ImageTk.PhotoImage(Image.open('imgs/background.jpg'))
+        tk_window.geometry('1047x785')
+        back_img = ImageTk.PhotoImage(Image.open('imgs/back.jpg'))
         back = Label(tk_window, image=back_img)
         back.place(x=0, y=0, relwidth=1, relheight=1)
         back.image = back_img
+    else:
+        tk_window.geometry('820x100')
 
     # Labels
     label_folder_origin = Label(tk_window, text='Enter the texture origin folder with all the maps')
