@@ -1,6 +1,7 @@
 from PIL import Image
 import numpy as np 
 from TextureOverlayer import add_overlay, add_overlay_with_inverted_mask
+import os.path
 
 '''
     Functions for loading, formating and overlapping
@@ -22,7 +23,7 @@ def PBR_batch_overlaping(imgs, overlays):
     color_overlay_mask = overlays[COLOR, :, :, 3] / 255.0
     results = np.zeros(imgs.shape)
 
-    results[SPECULAR ,:,:,:] = add_overlay_with_inverted_mask(imgs[SPECULAR ,:,:,:], overlays[SPECULAR, :,:,:], spec_overlay_mask, True)
+    results[SPECULAR ,:,:,:] = add_overlay_with_inverted_mask(imgs[SPECULAR ,:,:,:], overlays[SPECULAR, :,:,:], spec_overlay_mask)
     results[COLOR ,:,:,:] = add_overlay_with_inverted_mask(imgs[COLOR ,:,:,:], overlays[COLOR, :,:,:], color_overlay_mask, True)
     results[NORMALS ,:,:,:] = add_overlay_with_inverted_mask(imgs[NORMALS ,:,:,:], overlays[NORMALS, :,:,:], color_overlay_mask)
 
@@ -64,13 +65,13 @@ if __name__ == '__main__':
     names = ['diamond_ore']
 
     for name in names:
-        overlay_img = load_PBR_images('NAPPs/ores/diamond/' + name)
+        overlay_img = load_PBR_images(os.path.join('diamond_ore', name))
 
         for e_i, i in enumerate(range(4)):
             for e_j, j in enumerate(range(4)):
                 index = str((e_i * 16) + (e_j))
-                base_img = load_PBR_images('NAPPs/stone/' + index)
+                base_img = load_PBR_images(os.path.join('stone_res', index))
 
                 merged = PBR_batch_overlaping(base_img, overlay_img)
 
-                save_PBR_images(merged, 'NAPPs/result/' + name + '/' + index)
+                save_PBR_images(merged,os.path.join('res', name, index))
