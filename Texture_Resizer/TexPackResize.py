@@ -40,8 +40,8 @@ class TexPackResize:
         Iterate throught a directory, and scale all the images
         to the selected size
     '''
-    def scale_directory(self, directory):
-        images_in_directory = file_search(IMAGE_TYPES, directory)
+    def scale_directory(self, directory, img_types):
+        images_in_directory = file_search(img_types, directory)
 
         print('Scalling ' + str(len(images_in_directory)) + ' images...')
         for image in images_in_directory:
@@ -52,9 +52,9 @@ class TexPackResize:
         (Main function)
         Duplicates a directory and then scales it
     '''
-    def resize_directory(self, directory, address=''):
+    def resize_directory(self, directory, address='', img_types = IMAGE_TYPES):
         new_dir = self.directory_clone(directory, address)
-        self.scale_directory(os.path.join(address,new_dir))
+        self.scale_directory(os.path.join(address,new_dir), img_types)
 
 
 '''

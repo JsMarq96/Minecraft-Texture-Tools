@@ -24,7 +24,7 @@ HORRIBLE_BACKGROUND = True
 def define_GUI(tk_window, resize_util):
     # Window Config
     tk_window.title('TexturePack Resizing Utility v ' + VERSION)
-    tk_window.geometry('610x100')
+    tk_window.geometry('650x100')
 
     if HORRIBLE_BACKGROUND:
         back_img = ImageTk.PhotoImage(Image.open('imgs/background.jpg'))
@@ -41,6 +41,8 @@ def define_GUI(tk_window, resize_util):
     label_resolution.grid(column=7, row=0)
     label_x = Label(tk_window, text='x ')
     label_x.grid(column=4, row=1)
+    label_file_extensions = Label(tk_window, text='File extensions:')
+    label_file_extensions.grid(column=1, row=2)
 
     # Text Input
     txt_direction_input = Entry(tk_window, width=25)
@@ -53,6 +55,9 @@ def define_GUI(tk_window, resize_util):
     txt_height_input.insert(0,'512')
     txt_result_direction_input = Entry(tk_window, width=25)
     txt_result_direction_input.grid(column=7, row=1)
+    txt_file_extensions = Entry(tk_window, width=10)
+    txt_file_extensions.grid(column=3, row=2)
+    txt_file_extensions.insert(0,'.png')
 
     # Button Events
     def launch_item_search():
@@ -68,8 +73,12 @@ def define_GUI(tk_window, resize_util):
     def resize():
         button_resize.configure(state='disabled', text='Resizing...')
         tk_window.update()
+
+        extensions = txt_file_extensions.get()
+        extensions = tuple(extensions.split(','))
+
         resize_util.scale = (int(txt_width_input.get()), int(txt_height_input.get()))
-        resize_util.resize_directory(txt_direction_input.get(), txt_result_direction_input.get())
+        resize_util.resize_directory(txt_direction_input.get(), txt_result_direction_input.get(), extensions)
         messagebox.showinfo('TexturePack Resizing Utility', 'Finished resizing!')
         button_resize.configure(state='normal', text='Resize')
         tk_window.update()
@@ -81,7 +90,7 @@ def define_GUI(tk_window, resize_util):
     button_search_2 = Button(tk_window, text='Search', command=launch_search_result_folder)
     button_search_2.grid(column=8, row=1)
     button_resize = Button(tk_window, text='Resize', command=resize)
-    button_resize.grid(column=5, row=3)
+    button_resize.grid(column=5, row=6)
 
 
 '''
