@@ -29,7 +29,10 @@ def make_panorama_imgs(mc_folder_location='.'):
 
     # Create the folder where we are going to stre all the imgs
     folder_location = os.path.join(mc_folder_location, 'background')
-    shutil.rmtree(folder_location)
+
+    if os.path.isfile(folder_location):
+        shutil.rmtree(folder_location)
+        
     os.mkdir(folder_location)
 
     mc_message('Starting the image modification, wait...')
@@ -45,4 +48,4 @@ def make_panorama_imgs(mc_folder_location='.'):
 
 if __name__ == '__main__':
     time.sleep(4)
-    make_panorama_imgs('/home/js/.minecraft/')
+    make_panorama_imgs('AppData\\Roaming\\.minecraft')

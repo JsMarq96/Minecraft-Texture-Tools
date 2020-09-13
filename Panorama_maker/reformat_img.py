@@ -4,7 +4,7 @@ import numpy as np
 '''
     Helper function to format the image as a centerd square,
     for the panoramic images
-    bu Juan S. Marquerie
+    by Juan S. Marquerie
 '''
 
 def reformat(original_image, destination_image):

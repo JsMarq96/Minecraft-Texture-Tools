@@ -1,7 +1,7 @@
 import platform
 import time
 from enum import Enum
-from pynput.keyboard import Key, Controller
+from pywinauto import keyboard
 
 '''
     Util for rotating the player, and taking snapshots, in order to take
@@ -21,36 +21,43 @@ class Player_Dirs(Enum):
     UP    = '~ ~1 ~'
     DOWN  = '~ ~-1 ~'
 
+def keyboard_simulate(text):
+    buffer_text = ''
+    for char in text:
+        if char == ' ':
+            buffer_text = buffer_text + '{SPACE}'
+        elif char == '~':
+            buffer_text = buffer_text + '{~}'
+        elif char == '@':
+            buffer_text = buffer_text + '{@}'
+        elif char == '\n':
+            buffer_text = buffer_text + '{ENTER}'
+        else:
+            buffer_text = buffer_text + '{' + char + ' down}{' + char + ' up}'
+    print(buffer_text)
+    keyboard.send_keys(buffer_text)
+
 # Rotate player to one of the directions
-def player_rotate(direction='~ ~ ~'):
-    keyboard = Controller()
-    command = 'tp @a ~ ~ ~ ' + direction.value
+def player_rotate(direction='~1 ~ ~'):
+    command = '/tp @a ~ ~ ~ facing ' + direction.value + '\n'
 
     print('Writing ' + command)
-    keyboard.press('/')
-    keyboard.release('/')
-    time.sleep(0.5)
-    keyboard.type(command)
+    keyboard_simulate(command)
 
 # Toggle minecraft UI
 def toggle_UI():
     print('Toggled UI')
-    keyboard = Controller()
-    keyboard.press(Key.f1)
-    keyboard.release(Key.f1)
+
+    keyboard.send_keys('{F1}')
 
 # Take a snapshot
 def take_snapshot():
     print('Take snapshot')
-    keyboard = Controller()
-
-    keyboard.press(Key.f2)
-    keyboard.release(Key.f2)
+    
+    keyboard.send_keys('{F2}')
 
 # Print a message on minecraft
 def message(msg=''):
-    command = '/msg @a ' + msg
-    keyboard = Controller()
+    command = '/msg{SPACE}@a{SPACE}' + msg
 
     print('Printed ' + command + ' on minecraft')
-    keyboard.type(command)

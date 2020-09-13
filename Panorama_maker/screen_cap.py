@@ -23,6 +23,7 @@ def take_screenshots(mc_folder_dir=''):
     mc_cont.toggle_UI()
 
     # Find all the screenshots in the minecraft folder
+    print('qweerq', mc_folder_dir)
     screen_shot_paths = sorted(Path(os.path.join(mc_folder_dir, 'screenshots')).iterdir(), key=os.path.getmtime)
 
     # Return the last 6 image dirs
