@@ -21,7 +21,7 @@ FILE_NAME = {
 }
 
 # Main funcion to create a panorama image
-def make_panorama_imgs(mc_folder_location='.'):
+def make_panorama_imgs(mc_folder_location='.', destination_folder='.'):
     snapshots = screen_cap.take_screenshots(mc_folder_location)
 
     # Wait for minecfrat to download the images
@@ -30,9 +30,6 @@ def make_panorama_imgs(mc_folder_location='.'):
     # Create the folder where we are going to stre all the imgs
     folder_location = os.path.join(mc_folder_location, 'background')
 
-    if os.path.isfile(folder_location):
-        shutil.rmtree(folder_location)
-        
     os.mkdir(folder_location)
 
     mc_message('Starting the image modification, wait...')

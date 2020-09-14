@@ -7,9 +7,6 @@ from pywinauto import keyboard
     Util for rotating the player, and taking snapshots, in order to take
     the panoramic screen caps. This is possible via keyboard control.
     by Juan S. Marquerie
-
-    TODO:
-        -Add singleton for all the keyoard instances
 '''
 
 # All the direction needed
@@ -32,14 +29,17 @@ def keyboard_simulate(text):
             buffer_text = buffer_text + '{@}'
         elif char == '\n':
             buffer_text = buffer_text + '{ENTER}'
+        elif char == '/':
+            buffer_text = buffer_text + '+{' + char + ' down}{' + char + ' up}'
         else:
             buffer_text = buffer_text + '{' + char + ' down}{' + char + ' up}'
-    print(buffer_text)
+            print(buffer_text)
+    print('buff', buffer_text)
     keyboard.send_keys(buffer_text)
 
 # Rotate player to one of the directions
 def player_rotate(direction='~1 ~ ~'):
-    command = '/tp @a ~ ~ ~ facing ' + direction.value + '\n'
+    command = 't/tp @a ~ ~ ~ facing ' + direction.value + '\n'
 
     print('Writing ' + command)
     keyboard_simulate(command)
