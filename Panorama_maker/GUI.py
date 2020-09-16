@@ -9,11 +9,18 @@ import time
 '''
 
 VERSION = '0.10'
+HORRIBLE_BACKGROUND = True
 
 def define_GUI(tk_window):
     # Window Config
     tk_window.title('Minecraft Panorama Utility v ' + VERSION)
-    tk_window.geometry('550x210')
+    tk_window.geometry('1150x650')
+
+    if HORRIBLE_BACKGROUND:
+        back_img = ImageTk.PhotoImage(Image.open('imgs/background.png'))
+        back = Label(tk_window, image=back_img)
+        back.place(x=0, y=0, relwidth=1, relheight=1)
+        back.image = back_img
 
     # Labels
     label_folder_origin = Label(tk_window, text='Minecraft folder direction')
