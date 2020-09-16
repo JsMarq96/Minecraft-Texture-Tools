@@ -3,7 +3,7 @@ from PIL import Image
 
 def split_text(text_source, split_nums, save_dir='',img_format='.png'):
     for suffix in ['', '_n', '_s']:
-        img = np.asarray(Image.open(text_source + suffix + '.png').convert('RGBA'))
+        img = np.asarray(Image.open(text_source + suffix + '.png').convert('RGB'))
         w, h, dims = img.shape
         n_w = int(w/int(split_nums))
         n_h = int(h/int(split_nums))
@@ -12,12 +12,7 @@ def split_text(text_source, split_nums, save_dir='',img_format='.png'):
             for e_j, j in enumerate(range(0, h, n_h)):
                 print(i,j,e_i, e_j, (e_i * 16) + (e_j))
                 slice_img = img[i:i+n_w, j:j+n_h, 0:dims]
-                if suffix == '_n':
-                    t1 = np.copy(slice_img)
-                    t1[:,:,3] = t1[:,:,3] * 0.8
-                    Image.fromarray(t1.astype(np.uint8)).save(save_dir + str((e_i * 16) + (e_j)) + suffix + '.png')
-                else:
-                    Image.fromarray(slice_img.astype(np.uint8)).save(save_dir + str((e_i * 16) + (e_j)) + suffix + '.png')
+                Image.fromarray(slice_img.astype(np.uint8)).save(save_dir + str((e_i * 16) + (e_j)) + suffix + '.png')
 
 
 if __name__ == '__main__':
