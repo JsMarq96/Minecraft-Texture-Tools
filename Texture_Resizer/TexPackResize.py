@@ -1,7 +1,7 @@
 from PIL import Image
 from DirectoryTransversal import file_search
 import shutil
-import png
+import numpy as np
 import os.path
 
 IMAGE_TYPES = ('.png', '.jpg')
@@ -24,7 +24,9 @@ class TexPackResize:
     '''
     def image_scale(self, img_adress, result_img_adress, new_size):
         img = Image.open(img_adress).convert('RGBA')
-        img.resize(new_size, Image.BICUBIC).save(result_img_adress)
+        res = img.resize(new_size, Image.BICUBIC)
+        res = Image.fromarray(np.asarray(res, dtype=np.uint8))
+        res.save(result_img_adress)
 
     '''
         Function to clone a full folder directory, in order to scale it
