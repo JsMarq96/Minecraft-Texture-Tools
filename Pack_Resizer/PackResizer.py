@@ -2,7 +2,7 @@
 
 from Img_Resizer import CMODE, img_compress
 from DirectoryTransversal import file_search
-from multiprocessing import Pool
+from multiprocessing import Pool, cpu_count
 from PIL import Image
 
 
@@ -27,7 +27,7 @@ def resize(pack_dir='.', file_term={}):
     #   resize_img(f_dir)
    
 
-    with Pool(processes=8) as pool:
+    with Pool(processes=cpu_count()) as pool:
         pool.map(resize_img, file_dirs_tuple)
 
 
@@ -37,5 +37,5 @@ if __name__ == '__main__':
                    'NORM': CMODE.LIGHT,
                    'SPEC':CMODE.HEAVY
                   }
-    resize('/home/js/.minecraft/resourcepacks/NAPP_512x_1.4.1_red/assets/minecraft', file_modes)
+    resize('/home/js/.minecraft/resourcepacks/NAPP_1024x_1.4.1_red/assets/minecraft', file_modes)
     print('finished')
